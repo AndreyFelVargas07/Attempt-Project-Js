@@ -6,6 +6,7 @@
 body{
 background-color: hsla(231, 91%, 54%, 1.5) ;
 }
+/*Start Functionalitys*/
 .container-start{
     margin: 13rem auto;
     display: flex;
@@ -18,8 +19,7 @@ background-color: hsla(231, 91%, 54%, 1.5) ;
     font-size: 40px;
     padding: 80px;
     border: none;
-    
-    animation: 3s infinite alternate;
+    transition: background-color 0.5s;
 
 }
 .button-start:hover{
@@ -27,14 +27,21 @@ background-color: hsla(231, 91%, 54%, 1.5) ;
     color: #fff;
     box-shadow: 3px 3px 6px 6px #000;
 }
+
+/*Modal */
+@keyframes modalEntrada {
+    from { opacity: 0; transform: translateY(-50px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
 .modal{
+    animation: modalEntrada 0.3s ease-out;
     display: none;
     align-items: center;
     background-color: #ede;
     padding: 10px;
     margin: 20px auto;
     width: 30rem;
-    height: 30rem;
+    height: 35rem;
     border-radius: 20px;
     flex-direction: column;
     font-family: cursive;
@@ -74,3 +81,51 @@ background-color: hsla(231, 91%, 54%, 1.5) ;
     font-size: 20px;
     margin-left: 5px;
 }
+/*Modal Buttons*/
+.buttons-actions{
+    justify-content: center;
+    display: flex;
+    margin: 15px auto;
+
+}
+.button{
+    width: 20px;
+    height: 20px;
+    margin: 5px;
+}
+.button{
+    padding: 15px;
+    width: 100px;
+    margin: 10px;
+    height: auto;
+    border-radius: 20px;
+    border:none;
+    font-size: 18px;
+    font-family: cursive;
+    box-shadow: 4px 4px 4px #333d;
+    animation: 3s infinite alternate;
+
+}
+
+ #btn-cancel{
+    background-color: #FC0C0C ;
+    color: #fff;
+ }
+ #btn-cancel:hover{
+    background-color: #DD1818;
+ }
+ #btn-reset{
+    background-color:#FCDF0C ;
+    color: #fff;
+ }
+ #btn-reset:hover{
+    background-color: #EAD117;
+ }
+ #btn-next{
+    background-color: #0CFC2D;
+    color: #fff;
+ }
+ #btn-next:hover{
+    background-color: #14F53D;
+ }
+

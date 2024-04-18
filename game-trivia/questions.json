@@ -1,0 +1,53 @@
+[
+    {
+      "question": "¿Cuál es la capital de Francia?",
+      "options": ["Londres", "París", "Berlín", "Madrid"],
+      "correct_answer": "París"
+    },
+    {
+      "question": "¿Quién pintó la Mona Lisa?",
+      "options": ["Vincent van Gogh", "Leonardo da Vinci", "Pablo Picasso", "Claude Monet"],
+      "correct_answer": "Leonardo da Vinci"
+    },
+    {
+      "question": "¿Cuál es el río más largo del mundo?",
+      "options": ["Nilo", "Amazonas", "Misisipi", "Yangtsé"],
+      "correct_answer": "Amazonas"
+    },
+    {
+      "question": "¿En qué año ocurrió la Revolución Francesa?",
+      "options": ["1789", "1799", "1804", "1815"],
+      "correct_answer": "1789"
+    },
+    {
+      "question": "¿Quién escribió 'Don Quijote de la Mancha'?",
+      "options": ["Miguel de Cervantes", "Gabriel García Márquez", "William Shakespeare", "Fiodor Dostoievski"],
+      "correct_answer": "Miguel de Cervantes"
+    },
+    {
+      "question": "¿Cuál es el elemento más abundante en la corteza terrestre?",
+      "options": ["Oxígeno", "Hierro", "Silicio", "Aluminio"],
+      "correct_answer": "Oxígeno"
+    },
+    {
+      "question": "¿En qué país se encuentra la Torre Eiffel?",
+      "options": ["Italia", "Francia", "España", "Reino Unido"],
+      "correct_answer": "Francia"
+    },
+    {
+      "question": "¿Cuál es el animal terrestre más grande del mundo?",
+      "options": ["Elefante", "Jirafa", "Hipopótamo", "Rinoceronte"],
+      "correct_answer": "Elefante"
+    },
+    {
+      "question": "¿Quién escribió 'Romeo y Julieta'?",
+      "options": ["William Shakespeare", "Jane Austen", "Friedrich Nietzsche", "Charles Dickens"],
+      "correct_answer": "William Shakespeare"
+    },
+    {
+      "question": "¿Cuál es el país más grande del mundo por territorio?",
+      "options": ["Rusia", "Canadá", "Estados Unidos", "China"],
+      "correct_answer": "Rusia"
+    }
+  ]
+  

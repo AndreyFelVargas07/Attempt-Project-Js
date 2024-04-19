@@ -31,7 +31,7 @@ function loadQuestion() {
   if( count < questionsData.length ){
        const questions = questionsData[count];
        containerResponse.innerHTML = "";
-       titleModal.textContent = `Question #${questions.number}`;
+       titleModal.textContent = `Question #${count +1}`;
        descriptionModal.textContent = questions.question;
      
        for (let i = 0; i < questions.options.length; i++) {
@@ -39,7 +39,7 @@ function loadQuestion() {
          responseOptions.classList.add("response");
      
          responseOptions.innerHTML = `
-           <input type="radio" class="reponse-input" name"${questions.options[i]}" value="${questions.options[i]}">
+           <input type="radio" class="reponse-input" name="${questions.options[i]}" value="${questions.options[i]}">
            <label for="${questions.options[i]}">${questions.options[i]}</label>
            `;
          containerResponse.appendChild(responseOptions);
@@ -68,19 +68,38 @@ console.log('Sisas', count)
 loadQuestion()
 });
 
+let answers = [];
 function validatedOption(numberQuestion) {
-  
+  console.log(numberQuestion)
   const responseOption = document.querySelectorAll(".reponse-input");
   const containerModal = document.querySelector(".modal");
-  const corecctAnswers = [];
+  let optionSelect;
 
-  responseOption.forEach((option) => {
-    option.addEventListener('click',(e)=>{
-        e.preventDefault();
-        const valueSelect =e.target.value;
-        corecctAnswers.push(e.target.value);
-    })
-    });
+  for(let i = 0; i < responseOption.length; i++){
+    responseOption[i].addEventListener('click',()=>{
+    console.log(responseOption[i].value);
+    optionSelect = responseOption[i].value;
+    answers.push({number: numberQuestion, answerSelect:optionSelect})
+  })
 }
+evualateAnswers();
+  console.log(answers)
 
+}
+function evualateAnswers(){
+  const correctAnswers = [];
+  const incorrectAnswers = [];
+  for(let i =0 ; i< answers.length; i++){
+
+    if(questionsData[i].correct_answer === answers[i].answerSelect){
+        correctAnswers.push(i)
+    }else{
+       incorrectAnswers.push(i);
+    }
+    
+  }
+    return {correctAnswers, incorrectAnswers};
+
+}
   
+

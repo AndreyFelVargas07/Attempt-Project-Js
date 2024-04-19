@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RR</title>
+  </head>
+
+  <body>
+    <div class="response">
+        <input type="radio" class="input" value="33" />
+        <input type="radio"  class="input" value="66" />
+        <input type="radio"  class="input" value="77" />
+    </div>
+  
+</body>
+  <script>
+    const btn = document.querySelector('#btn');
+    const inputs = document.querySelectorAll('.input')
+    
+    inputs.forEach(input =>{
+        input.addEventListener('click', (e)=>{
+            e.preventDefault
+            console.log(e.target.value)
+        })
+    })
+    
+  </script>
+</html>

@@ -4,21 +4,25 @@
     box-shadow: none;
 }
 body{
-background-color: hsla(231, 91%, 54%, 1.5) ;
+background-color: #6E0AD1;
 }
 /*Start Functionalitys*/
 .container-start{
-    margin: 13rem auto;
+    margin: 10rem auto;
     display: flex;
     justify-content: center;
 }
 .button-start{
     border-radius: 48%;
-    background-color:#000;
+    background-color:#EE14F5;
     color: #fff;
-    font-size: 40px;
+    font-size: 100px;
     padding: 80px;
+    font-family: cursive;
+    width: 600px;
+    height: 600px;
     border: none;
+    box-shadow: #14F5DD 7px 17px 17px 30px;
     transition: background-color 0.5s;
 
 }
@@ -131,4 +135,41 @@ background-color: hsla(231, 91%, 54%, 1.5) ;
  #btn-next:hover{
     background-color: #14F53D;
  }
+ #btn-finish{
+    background-color: #0F6BF1;
+ }
+#btn-finish:hover{
+    background-color: #152dff;
+}
 
+
+.container-answers{
+    margin-top: 45px;
+    color: #145CF5;
+    font-family: cursive;
+    font-size: 20px;
+    display: inline-block;
+    left: 0;
+    justify-content: left;
+}
+.correct-answers{
+    color: #145CF5;
+    margin: 20px;
+}
+.correct-answers > b{
+    margin: 15px;
+    color: #000;
+}
+.incorrect-answers{
+    color:#DD1818;
+    margin:20px
+}
+
+.incorrect-answers > b{
+    color:#000
+}
+.icon-puntuation{
+width: 250px;
+height: 250px;
+margin-left:35px ;    
+}

@@ -17,10 +17,10 @@ async function createQuestions() {
 
     questionsData.push(questionsJson.splice(indexRandom, 1)[0]);
   }
-  loadQuestion();
+  await loadQuestion();
 }
 
-function loadQuestion() {
+async function loadQuestion() {
   const containerModal = document.querySelector("#container-modal");
   let containerResponse = document.querySelector("#container-response");
   let titleModal = document.querySelector(".question-number");
@@ -53,10 +53,8 @@ function loadQuestion() {
     validatedOption(questions.number);
   } else {
     containerModal.innerHTML = "";
-    console.log("No hay mas pa mostrar");
     const answers = evualateAnswers();
-    console.log(answers);
-
+    await puntuation(answers);
   }
 }
 
@@ -84,14 +82,41 @@ function validatedOption(numberQuestion) {
 function evualateAnswers() {
   let answerCorrect = 0;
   let incorrectAnswers = 0;
-  console.log(answers)
+  console.log(answers);
   console.log(questionsData);
   for (let i = 0; i < answers.length; i++) {
     if (questionsData[i].correct_answer === answers[i].answerSelect) {
-      ++answerCorrect      
-    } else if(questionsData[i].correct_answer !== answers[i].answerSelect){
-      ++incorrectAnswers     
+      ++answerCorrect;
+    } else if (questionsData[i].correct_answer !== answers[i].answerSelect) {
+      ++incorrectAnswers;
     }
   }
-    return {correctAnswers: answerCorrect, incorrectAnswers: incorrectAnswers };
+  return { correctAnswers: answerCorrect, incorrectAnswers: incorrectAnswers };
+}
+
+async function puntuation(answers) {
+  const { correctAnswers, incorrectAnswers } = answers;
+
+  const containerModal = document.querySelector(".container-modal");
+  const answersContainer = document.querySelector(".container-answers");
+  const titleModal = document.querySelector(".question-number");
+  const btnFinish = document.querySelector(".buttons-actions");
+
+  let incorrectAnswersResponse =
+    incorrectAnswers === "undefined" ? 0 : incorrectAnswers;
+  let iconPutuation =
+    correctAnswers < 3 ? "./images/TristeIcon.png" : "./images/felizIcon.png";
+
+  // containerModal.innerHTML = "";
+
+  // titleModal.textContent = `Question #${count + 1}`
+  answersContainer.innerHTML = `  
+   <h2 class="correct-answers">Correct Answers:<b>${correctAnswers}</b></h2>
+  <h2 class="incorrect-answers">Incorrect Answers: <b>${incorrectAnswersResponse}</b></h2>
+  <img class="icon-puntuation" src="${iconPutuation}" alt="Icon Puntuation" />
+  `;
+
+  btnFinish.innerHTML = `<button  class="button" id="btn-finish">Finish</button>`;
+
+  containerModal.append(titleModal, answersContainer, btnFinish);
 }

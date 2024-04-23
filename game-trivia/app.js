@@ -97,26 +97,28 @@ function evualateAnswers() {
 async function puntuation(answers) {
   const { correctAnswers, incorrectAnswers } = answers;
 
-  const containerModal = document.querySelector(".container-modal");
-  const answersContainer = document.querySelector(".container-answers");
+  debugger
+  const containerModal = document.querySelector("#container-modal");
+  const containerAnswerDiv = document.createElement("div");
   const titleModal = document.querySelector(".question-number");
   const btnFinish = document.querySelector(".buttons-actions");
 
+
+  containerAnswerDiv.classList.add('container-answers')
   let incorrectAnswersResponse =
     incorrectAnswers === "undefined" ? 0 : incorrectAnswers;
   let iconPutuation =
     correctAnswers < 3 ? "./images/TristeIcon.png" : "./images/felizIcon.png";
 
-  // containerModal.innerHTML = "";
+  console.log(containerAnswerDiv);
 
-  // titleModal.textContent = `Question #${count + 1}`
-  answersContainer.innerHTML = `  
-   <h2 class="correct-answers">Correct Answers:<b>${correctAnswers}</b></h2>
-  <h2 class="incorrect-answers">Incorrect Answers: <b>${incorrectAnswersResponse}</b></h2>
+  titleModal.textContent = `Puntuation`
+  containerAnswerDiv.innerHTML = `<h2 class="correct-answers">Correct Answers:<b>${correctAnswers}</b></h2>
+                              <h2 class="incorrect-answers">Incorrect Answers: <b>${incorrectAnswersResponse}</b></h2>
   <img class="icon-puntuation" src="${iconPutuation}" alt="Icon Puntuation" />
   `;
 
   btnFinish.innerHTML = `<button  class="button" id="btn-finish">Finish</button>`;
 
-  containerModal.append(titleModal, answersContainer, btnFinish);
+  containerModal.append(titleModal, containerAnswer, btnFinish);
 }

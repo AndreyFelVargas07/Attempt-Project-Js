@@ -105,7 +105,7 @@ async function puntuation(answers) {
   <img class="icon-puntuation" src="${iconPutuation}" alt="Icon Puntuation" />
   `;
 
-  btnFinishDiv.innerHTML = `<button  class="button" id="btn-finish">Try Again</button>`;
+  btnFinishDiv.innerHTML = `<button  class="button" onclick="finishReset()" id="btn-finish">Try Again</button>`;
 
   containerModal.append(containerAnswerDiv, btnFinishDiv);
 }
@@ -149,4 +149,8 @@ document.querySelector("#btn-cancel").addEventListener("click", () => {
 cancelReloadFunction();
 });
 
-  
+function finishReset(){
+  setTimeout(()=>{
+    window.location.reload();
+  },1500)
+}

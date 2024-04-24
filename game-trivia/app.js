@@ -60,7 +60,6 @@ const formAnswers = document.querySelector("#container-response");
 
 formAnswers.addEventListener("submit", (e) => {
   e.preventDefault();
-
   count++;
   const optionSelect = document.querySelector(
     'input[name="radioAnswer"]:checked'

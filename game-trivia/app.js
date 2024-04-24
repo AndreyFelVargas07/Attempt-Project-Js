@@ -20,6 +20,7 @@ async function createQuestions() {
   await loadQuestion();
 }
 
+let numberQuestion;
 async function loadQuestion() {
   const containerModal = document.querySelector("#container-modal");
   let containerResponse = document.querySelector("#container-response");
@@ -38,19 +39,15 @@ async function loadQuestion() {
       responseOptions.classList.add("response");
 
       responseOptions.innerHTML = `
-           <input type="radio" class="reponse-input" name="${questions.options[i]}" value="${questions.options[i]}">
-           <label for="${questions.options[i]}">${questions.options[i]}</label>
+           <input type="radio" required class="reponse-input" name="radioAnswer" value="${questions.options[i]}">
+           <label for="radioAnswer">${questions.options[i]}</label>
            `;
       containerResponse.appendChild(responseOptions);
     }
+    numberQuestion = questions.number; // Se guarda como parametro
 
-    containerModal.append(
-      titleModal,
-      descriptionModal,
-      containerResponse,
-      btnAcctions
-    );
-    validatedOption(questions.number);
+    containerResponse.appendChild(btnAcctions);
+    containerModal.append(titleModal, descriptionModal, containerResponse);
   } else {
     containerModal.innerHTML = "";
     const answers = evualateAnswers();
@@ -58,32 +55,24 @@ async function loadQuestion() {
   }
 }
 
-const btnNextQuestion = document.querySelector("#btn-next");
+let answers = [];
+const formAnswers = document.querySelector("#container-response");
 
-btnNextQuestion.addEventListener("click", () => {
+formAnswers.addEventListener("submit", (e) => {
+  e.preventDefault();
+
   count++;
+  const optionSelect = document.querySelector(
+    'input[name="radioAnswer"]:checked'
+  ).value;
+  answers.push({ number: numberQuestion, answerSelect: optionSelect });
   loadQuestion();
 });
-
-let answers = [];
-function validatedOption(numberQuestion) {
-  const responseOption = document.querySelectorAll(".reponse-input");
-  let optionSelect;
-
-  for (let i = 0; i < responseOption.length; i++) {
-    responseOption[i].addEventListener("click", () => {
-      console.log(responseOption[i].value);
-      optionSelect = responseOption[i].value;
-      answers.push({ number: numberQuestion, answerSelect: optionSelect });
-    });
-  }
-}
 
 function evualateAnswers() {
   let answerCorrect = 0;
   let incorrectAnswers = 0;
-  console.log(answers);
-  console.log(questionsData);
+
   for (let i = 0; i < answers.length; i++) {
     if (questionsData[i].correct_answer === answers[i].answerSelect) {
       ++answerCorrect;
@@ -97,28 +86,67 @@ function evualateAnswers() {
 async function puntuation(answers) {
   const { correctAnswers, incorrectAnswers } = answers;
 
-  debugger
   const containerModal = document.querySelector("#container-modal");
   const containerAnswerDiv = document.createElement("div");
-  const titleModal = document.querySelector(".question-number");
-  const btnFinish = document.querySelector(".buttons-actions");
+  const btnFinishDiv = document.createElement("div");
 
+  containerAnswerDiv.classList.add("container-answers");
+  btnFinishDiv.classList.add("buttons-actions");
 
-  containerAnswerDiv.classList.add('container-answers')
   let incorrectAnswersResponse =
     incorrectAnswers === "undefined" ? 0 : incorrectAnswers;
   let iconPutuation =
     correctAnswers < 3 ? "./images/TristeIcon.png" : "./images/felizIcon.png";
 
-  console.log(containerAnswerDiv);
-
-  titleModal.textContent = `Puntuation`
-  containerAnswerDiv.innerHTML = `<h2 class="correct-answers">Correct Answers:<b>${correctAnswers}</b></h2>
-                              <h2 class="incorrect-answers">Incorrect Answers: <b>${incorrectAnswersResponse}</b></h2>
+  containerAnswerDiv.innerHTML = `
+  <h1  class="question-number" style="margin-bottom:30px">Finish Puntuation</h1>
+  <h2 class="correct-answers">Correct Answers:<b>${correctAnswers}</b></h2>
+  <h2 class="incorrect-answers">Incorrect Answers: <b>${incorrectAnswersResponse}</b></h2>
   <img class="icon-puntuation" src="${iconPutuation}" alt="Icon Puntuation" />
   `;
 
-  btnFinish.innerHTML = `<button  class="button" id="btn-finish">Finish</button>`;
+  btnFinishDiv.innerHTML = `<button  class="button" id="btn-finish">Try Again</button>`;
 
-  containerModal.append(titleModal, containerAnswer, btnFinish);
+  containerModal.append(containerAnswerDiv, btnFinishDiv);
 }
+
+const cancelReloadFunction = () => {
+  const swalWithBootstrapButtons = Swal.mixin({
+    buttonsStyling: false,
+  });
+  swalWithBootstrapButtons
+    .fire({
+      title: "¿Estas Seguro de Cancelar la Prueba?",
+      text: "Si la cancelas perderas el progreso...",
+      icon: "warning",
+      iconColor: "#6E0AD1",
+      padding: "20px",
+      background: "#fff",
+      color: "#000",
+      border: "1px solid #000",
+      position: "center",
+      showCancelButton: true,
+      confirmButtonText: "Si, Quiero Cancelarla!",
+      cancelButtonText: "No, Quiero Continuar!",
+      reverseButtons: true,
+    })
+    .then((result) => {
+      if (result.isConfirmed) {
+        swalWithBootstrapButtons.fire({
+          title: "Se esta Cancelando la Prueba...",
+          text: "Espera un momento...",
+          icon: "error",
+          iconColor: "#000",
+        });
+        setTimeout(() => {
+          window.location.reload();
+        }, 1500);
+      }
+    });
+};
+
+document.querySelector("#btn-cancel").addEventListener("click", () => {
+cancelReloadFunction();
+});
+
+  

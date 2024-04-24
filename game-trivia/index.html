@@ -14,20 +14,20 @@
     <div id="container-modal" class="modal">
       <h1  class="question-number"></h1>
       <p  class="question"></p>
-      <div id="container-response" class="container-response">
+      <form id="container-response" class="container-response">
         <div class="response">
           <input name="question1" type="radio" value="Cristobal Colon" />
           <label for="question1">Cristobal Colon</label>
         </div>
-     
+        
+        <div class="buttons-actions">
+          <button class="button" id="btn-cancel">Cancel</button>
+          <button class="button" id="btn-next" type="submit">Next</button>
+        </div>
+      
+      </form>
 
-      <div class="buttons-actions">
-        <button class="button" id="btn-cancel">Cancel</button>
-        <button class="button" id="btn-next">Next</button>
-        <!-- <button  class="button" id="btn-finish">Finish</button> -->
-      </div>
-    </div>
-    
     <script src="app.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </body>
 </html>

@@ -1,10 +1,16 @@
+
+document.addEventListener('DOMContentLoaded',async()=>{
+    await selectMortysRadom();
+    createCartsMortys();
+})
+
 const btnPlay = document.querySelector(".container-button-play");
 
 btnPlay.addEventListener("click", async () => {
   btnPlay.style.display = "none";
   await activeHoverCartsEfeccts();
-  await selectMortysRadom();
 });
+
 // Funcion para agregar los estilos del hover a las cartas
 async function activeHoverCartsEfeccts() {
   const styleHTML = document.createElement("style");
@@ -42,6 +48,61 @@ async function selectMortysRadom(){
     
 }
 
-console.log(newData);
-
 // Funcion para crear los backgrounds
+function createCartsMortys(){
+    const containerCartsHTML = document.querySelector('.container-carts');
+    let count = 0
+    
+    
+    for(let i= 0; i < 12; i++){
+        const elementDiv = document.createElement('div');
+        elementDiv.classList.add('element');
+        elementDiv.innerHTML = `
+        <img class="element-img_background" src="./Morty-img/Backgroun-Cart.jpg" alt="">
+        <img class="element-img_morty"  src="${newData[count].img}" alt="${newData[count].name}">
+        `
+        containerCartsHTML.appendChild(elementDiv)
+
+        ++count;
+        if(i === 5){
+            count = 0;
+        }
+    }
+    selectCarts()
+}
+
+function selectCarts(){
+    const elements = document.querySelectorAll('.element');
+
+    let pruebita= [];
+    elements.forEach(element=>{
+     
+        element.addEventListener('click', () =>{
+            
+            element.querySelector('.element-img_background').style.display = 'none';
+            element.querySelector('.element-img_morty').style.display = 'flex';
+            
+            let cartSelect = element.querySelector('.element-img_morty').alt;
+
+            pruebita.push(cartSelect)
+            
+            if(pruebita[0] === cartSelect){
+
+                console.log('R')
+                element.querySelector('.element-img_morty').style.border = '1px solid green';
+
+            }else{
+                setTimeout(()=>{
+                    element.querySelector('.element-img_morty').style.display = 'none';
+                    element.querySelector('.element-img_background').style.display = 'flex';
+                },1500)
+
+            }
+                console.log(cartSelect);
+
+
+        })
+    })
+
+    
+}

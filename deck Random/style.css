@@ -8,13 +8,13 @@ body {
 }
 /*Text Title and Button Try Again*/
 
-.title-game{
-    color: #fff;
-    font-size: 50px;
-    font-family: cursive;
-    text-align: center;
-    margin: 15px;
-    font-weight:bold;
+.title-game {
+  color: #fff;
+  font-size: 50px;
+  font-family: cursive;
+  text-align: center;
+  margin: 15px;
+  font-weight: bold;
 }
 .container-options {
   display: flex;
@@ -45,8 +45,8 @@ body {
 
 /*Button*/
 .container-title_button {
-    display: flex;
-    align-items: flex-end;
+  display: flex;
+  align-items: flex-end;
 }
 .container-title_button > button {
   background-color: #09f;
@@ -56,8 +56,8 @@ body {
   border: none;
   margin-right: 35px;
 }
-.container-title_button > button:hover{
-    background-color: #18f;
+.container-title_button > button:hover {
+  background-color: #18f;
 }
 
 /*Continer Carts Custom*/
@@ -78,31 +78,39 @@ body {
   width: 200px;
   height: 200px;
 }
-.element-img_background, .element-img_morty {
+.element-img_background {
   border-radius: 20px;
   width: 200px;
   height: 200px;
   transition: transform 0.3s ease;
 }
-
-.container-button-play{
-position: absolute;
-inset: 0;
-padding: 20px;
-width: 25rem;
-height: 25rem;
-border-radius: 50%;
-border: 5px solid #09f;
-background: transparent;
-font-size: 50px;
-color:#fff;
-font-family: cursive;
-margin: auto;
-transition: transform 0.3s ease;
-
-
+element.style{
+  display: none;
 }
-.container-button-play:hover{
-    background-color: #09f;
-    transform: scale(1.1);
+.element-img_morty {
+  display: none;
+  border-radius: 20px;
+  width: 200px;
+  height: 200px;
+  transition: transform 0.3s ease;  
+}
+
+.container-button-play {
+  position: absolute;
+  inset: 0;
+  padding: 20px;
+  width: 25rem;
+  height: 25rem;
+  border-radius: 50%;
+  border: 5px solid #09f;
+  background: transparent;
+  font-size: 50px;
+  color: #fff;
+  font-family: cursive;
+  margin: auto;
+  transition: transform 0.3s ease;
+}
+.container-button-play:hover {
+  background-color: #09f;
+  transform: scale(1.1);
 }

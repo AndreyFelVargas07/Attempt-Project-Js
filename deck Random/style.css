@@ -1,7 +1,108 @@
-*{
-    padding: 0px;
-    margin: 0px;
-    box-shadow: none;
+* {
+  padding: 0px;
+  margin: 0px;
+  box-shadow: none;
+}
+body {
+  background: #1a1623;
+}
+/*Text Title and Button Try Again*/
+
+.title-game{
+    color: #fff;
+    font-size: 50px;
+    font-family: cursive;
+    text-align: center;
+    margin: 15px;
+    font-weight:bold;
+}
+.container-options {
+  display: flex;
+  justify-content: center;
+  box-sizing: border-box;
+  margin: 15px;
+}
+.container-title {
+  box-sizing: border-box;
+  height: auto;
+  display: flex;
+  width: 60rem;
+  justify-content: space-between;
+  font-family: cursive;
+}
+/*Score and Count*/
+
+.container-title_score {
+  display: flex;
+  align-items: flex-end;
+  margin-left: 40px;
+}
+.container-title_score > h2 {
+  font-size: 20px;
+  color: #fff;
+  margin-right: 20px;
 }
 
+/*Button*/
+.container-title_button {
+    display: flex;
+    align-items: flex-end;
+}
+.container-title_button > button {
+  background-color: #09f;
+  color: #fff;
+  padding: 15px;
+  border-radius: 10px;
+  border: none;
+  margin-right: 35px;
+}
+.container-title_button > button:hover{
+    background-color: #18f;
+}
 
+/*Continer Carts Custom*/
+.container-carts {
+  width: 60rem;
+  height: 45rem;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  flex-flow: wrap;
+  position: relative;
+}
+
+.element {
+  box-sizing: border-box;
+  margin: 15px;
+  width: 200px;
+  height: 200px;
+}
+.element-img_background, .element-img_morty {
+  border-radius: 20px;
+  width: 200px;
+  height: 200px;
+  transition: transform 0.3s ease;
+}
+
+.container-button-play{
+position: absolute;
+inset: 0;
+padding: 20px;
+width: 25rem;
+height: 25rem;
+border-radius: 50%;
+border: 5px solid #09f;
+background: transparent;
+font-size: 50px;
+color:#fff;
+font-family: cursive;
+margin: auto;
+transition: transform 0.3s ease;
+
+
+}
+.container-button-play:hover{
+    background-color: #09f;
+    transform: scale(1.1);
+}

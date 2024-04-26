@@ -2,49 +2,51 @@
   {
     "id": "3b6b7ee4-1a2d-4c94-b9e4-0d69e6255d23",
     "name": "Evil Morty",
-    "img":"https://pm1.aminoapps.com/6600/bb3c142f71d0f617e6797fa5d986bee2b55a90e1_00.jpg"
+    "img":"./Morty-img/Evil Morty.jpg"
   },
   {
     "id": "f10c1be5-68db-4c07-9e4b-7390a1340e18",
-    "name": "Cyber Morty",
-    "img":"https://d.newsweek.com/en/full/1825061/morty-episode-1-rick-morty.webp?w=790&f=1bb6600204f8c27be63dce160179fa68"
+    "name": "Morty Hunter",
+    "img":"./Morty-img/Morty Hunter.webp"
   },
   {
     "id": "4e2fb50e-79bf-4902-9a4a-cd40c8e44aa6",
     "name": "Morty 0IQ",
-    "img":"https://media.vandal.net/t200/35409/pocket-mortys-2016114101440_6.jpg"
+    "img":"./Morty-img/Morty 0IQ.jpg"
   },
   {
     "id": "6a799e88-5407-40d3-91a6-7d2de4d8d2c2",
     "name": "Rick Morty",
-    "img":"https://static.wikia.nocookie.net/rickandmorty/images/4/49/PM-146.png/revision/latest?cb=20160923032800"
+    "img":"./Morty-img/Morty Rick.jpg"
   },
   {
     "id": "e7c4c044-1ad3-4824-a076-d17f8102e54d",
-    "name": "Reptilian Morty",
-    "img":"https://static.wikia.nocookie.net/rickandmorty/images/a/a0/PM-129.png/revision/latest?cb=20160916022959"
+    "name": "Morty Gangster",
+    "img":"./Morty-img/Morty Gangster.jpg"
   },
   {
     "id": "5fd9f86f-863d-4e0b-9822-654b7d8b0179",
-    "name": "The One True Morty",
-    "img":"https://static.wikia.nocookie.net/rickandmorty/images/b/bd/PM-082.png/revision/latest?cb=20160904110645"
+    "name": "Morty Lisa",
+    "img":"./Morty-img/MortyLisa.jpg"
   },
   {
     "id": "93e79933-2e18-42d4-b79a-ef15e6c14744",
-    "name": "Mortycia",
-    "img":"https://static.wikia.nocookie.net/rickandmorty/images/c/c9/PM-111.png/revision/latest?cb=20160904112122"
+    "name": "Morty Strong",
+    "img":"./Morty-img/Strong Morty.jpg"
   },
   {
     "id": "6b52236c-4a91-4c4e-8a84-d468f0e8796b",
-    "name": "Miami  Morty",
-    "img":"https://static.wikia.nocookie.net/rickandmorty/images/8/83/PM-150.png/revision/latest?cb=20160923033238"
+    "name": "Morty Dictator",
+    "img":"./Morty-img/Morty Dictador.jpg"
   },
   {
     "id": "0ec2ad19-123a-4a25-872f-92d2bde1c531",
-    "name": "Morty Robotizado"
+    "name": "Morty Clastrophobic",
+    "img":"./Morty-img/morty Clastrophobic.jpg"
   },
   {
     "id": "17a07d77-8c77-4e05-83d3-42234d82562f",
-    "name": "Morty de Cronenberg"
+    "name": "Morty From Space",
+    "img":"./Morty-img/Morty From Space.jpg"
   }
 ]

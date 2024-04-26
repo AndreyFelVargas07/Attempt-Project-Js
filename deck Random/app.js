@@ -83,24 +83,22 @@ function selectCarts(){
             element.querySelector('.element-img_morty').style.display = 'flex';
             
             let cartSelect = element.querySelector('.element-img_morty').alt;
-
             pruebita.push(cartSelect)
-            
-            if(pruebita[0] === cartSelect){
 
-                console.log('R')
-                element.querySelector('.element-img_morty').style.border = '1px solid green';
-
-            }else{
-                setTimeout(()=>{
-                    element.querySelector('.element-img_morty').style.display = 'none';
-                    element.querySelector('.element-img_background').style.display = 'flex';
-                },1500)
-
+            for(let i =0; i< newData.length; i++){
+                if(pruebita[0] === newData[i].name){
+    
+                    console.log(pruebita[0], newData[i].name)
+                    element.querySelector('.element-img_morty').style.border = '1px solid green';
+                    pruebita = [];
+                    console.log(pruebita)
+                }else{
+                    setTimeout(()=>{
+                        element.querySelector('.element-img_morty').style.display = 'none';
+                        element.querySelector('.element-img_background').style.display = 'flex';
+                    },1000)
+                }
             }
-                console.log(cartSelect);
-
-
         })
     })
 

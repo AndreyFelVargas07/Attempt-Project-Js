@@ -6,8 +6,8 @@ document.addEventListener('DOMContentLoaded', async()=>{
 })
 
 const dataFunctionJson = async()=>{
-    const response =  await fetch('./deck.json');
+    const response =  await fetch('./mortys.json');
     const dataJson = await response.json();
-    deckContainerDiv.innerHTML = `<img src="${dataJson[0].imagen}">`
+    deckContainerDiv.innerHTML = `<img src="${dataJson[0].img}">`
     
 }

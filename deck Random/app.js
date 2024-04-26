@@ -15,7 +15,7 @@ async function activeHoverCartsEfeccts() {
          height: 220px;
          margin-right: 15px;
            }
-        .element-img_background {
+        .element-img_background:hover {
          transform: scale(1.1);
          border-radius: 5px;
          box-shadow: 1px 1px 5px 1px #fff;
@@ -43,3 +43,5 @@ async function selectMortysRadom(){
 }
 
 console.log(newData);
+
+// Funcion para crear los backgrounds

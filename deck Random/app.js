@@ -1,8 +1,7 @@
-
-document.addEventListener('DOMContentLoaded',async()=>{
-    await selectMortysRadom();
-    createCartsMortys();
-})
+document.addEventListener("DOMContentLoaded", async () => {
+  await selectMortysRadom();
+  createCartsMortys();
+});
 
 const btnPlay = document.querySelector(".container-button-play");
 
@@ -14,7 +13,7 @@ btnPlay.addEventListener("click", async () => {
 // Funcion para agregar los estilos del hover a las cartas
 async function activeHoverCartsEfeccts() {
   const styleHTML = document.createElement("style");
-  
+
   styleHTML.innerHTML = `
         .element:hover {
          width: 220px;
@@ -30,77 +29,70 @@ async function activeHoverCartsEfeccts() {
           } 
     `;
 
-    document.querySelector("head").appendChild(styleHTML);
+  document.querySelector("head").appendChild(styleHTML);
 }
 
 // Funcion que me retorna aleatoriamente 6 objetos del json
 
-let newData=[];
-async function selectMortysRadom(){
-
-    const response = await fetch('./mortys.json');
-    let data = await response.json();
-    for(let i = 0; i< 6 ; i++){
-        
-        const indexRandom = Math.floor(Math.random() * data.length);
-        newData.push(data.splice(indexRandom,1)[0]);
-    }
-    
+let dataJson = [];
+async function selectMortysRadom() {
+  const response = await fetch("./mortys.json");
+  let data = await response.json();
+  for (let i = 0; i < 6; i++) {
+    const indexRandom = Math.floor(Math.random() * data.length);
+    dataJson.push(data.splice(indexRandom, 1)[0]);
+  }
 }
 
 // Funcion para crear los backgrounds
-function createCartsMortys(){
-    const containerCartsHTML = document.querySelector('.container-carts');
-    let count = 0
-    
-    
-    for(let i= 0; i < 12; i++){
-        const elementDiv = document.createElement('div');
-        elementDiv.classList.add('element');
-        elementDiv.innerHTML = `
-        <img class="element-img_background" src="./Morty-img/Backgroun-Cart.jpg" alt="">
-        <img class="element-img_morty"  src="${newData[count].img}" alt="${newData[count].name}">
-        `
-        containerCartsHTML.appendChild(elementDiv)
+function createCartsMortys() {
+  const containerCartsHTML = document.querySelector(".container-carts");
+  let count = 0;
 
-        ++count;
-        if(i === 5){
-            count = 0;
-        }
+  for (let i = 0; i < 12; i++) {
+    const elementDiv = document.createElement("div");
+    elementDiv.classList.add("element");
+    elementDiv.innerHTML = `
+        <img class="element-img_background" src="./Morty-img/Backgroun-Cart.jpg" alt="">
+        <img class="element-img_morty"  src="${dataJson[count].img}" alt="${dataJson[count].name}">
+        `;
+    containerCartsHTML.appendChild(elementDiv);
+
+    ++count;
+    if (i === 5) {
+      count = 0;
     }
-    selectCarts()
+  }
+  selectCarts();
 }
 
-function selectCarts(){
-    const elements = document.querySelectorAll('.element');
+function selectCarts() {
+  const elements = document.querySelectorAll(".element");
 
-    let pruebita= [];
-    elements.forEach(element=>{
-     
-        element.addEventListener('click', () =>{
-            
-            element.querySelector('.element-img_background').style.display = 'none';
-            element.querySelector('.element-img_morty').style.display = 'flex';
-            
-            let cartSelect = element.querySelector('.element-img_morty').alt;
-            pruebita.push(cartSelect)
+  let selectMorty = [];
+  elements.forEach((element) => {
+    element.addEventListener("click", () => {
+      element.querySelector(".element-img_background").style.display = "none";
+      element.querySelector(".element-img_morty").style.display = "flex";
 
-            for(let i =0; i< newData.length; i++){
-                if(pruebita[0] === newData[i].name){
-    
-                    console.log(pruebita[0], newData[i].name)
-                    element.querySelector('.element-img_morty').style.border = '1px solid green';
-                    pruebita = [];
-                    console.log(pruebita)
-                }else{
-                    setTimeout(()=>{
-                        element.querySelector('.element-img_morty').style.display = 'none';
-                        element.querySelector('.element-img_background').style.display = 'flex';
-                    },1000)
-                }
-            }
-        })
-    })
+      let cartSelect = element.querySelector(".element-img_morty").alt;
+      selectMorty.push(cartSelect);
 
-    
+      console.log(selectMorty);
+      if (selectMorty[1]) {
+        if (selectMorty[0] === selectMorty[1]) {
+          console.log("Si son iguales");
+          element.querySelector(".element-img_morty").style.border =
+            "1px solid green";
+          selectMorty = [];
+        } else {
+          console.log("No son iguales");
+          element.querySelector(".element-img_morty").style.display = "none";
+          element.querySelector(".element-img_background").style.display ="flex";
+
+          selectMorty = [];
+        }
+      }
+    });
+  });
 }

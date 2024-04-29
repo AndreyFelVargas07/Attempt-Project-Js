@@ -8,6 +8,8 @@ const btnPlay = document.querySelector(".container-button-play");
 btnPlay.addEventListener("click", async () => {
   btnPlay.style.display = "none";
   await activeHoverCartsEfeccts();
+  selectCarts();
+
 });
 
 // Funcion para agregar los estilos del hover a las cartas
@@ -53,8 +55,8 @@ function createCartsMortys() {
     const elementDiv = document.createElement("div");
     elementDiv.classList.add("element");
     elementDiv.innerHTML = `
-        <img class="element-img_background" src="./Morty-img/Backgroun-Cart.jpg" alt="">
-        <img class="element-img_morty"  src="${dataJson[count].img}" alt="${dataJson[count].name}">
+        <img class="element-img_background" src="./Morty-img/Backgroun-Cart.jpg" alt="background${i}">
+        <img class="element-img_morty" id="morty${i}"  src="${dataJson[count].img}" alt="${dataJson[count].name}">
         `;
     containerCartsHTML.appendChild(elementDiv);
 
@@ -63,34 +65,64 @@ function createCartsMortys() {
       count = 0;
     }
   }
-  selectCarts();
 }
 
 function selectCarts() {
   const elements = document.querySelectorAll(".element");
-
   let selectMorty = [];
+  let backgroundsSelects = [];
+  let elementsHTML = [];
+  
   elements.forEach((element) => {
     element.addEventListener("click", () => {
       element.querySelector(".element-img_background").style.display = "none";
       element.querySelector(".element-img_morty").style.display = "flex";
 
       let cartSelect = element.querySelector(".element-img_morty").alt;
+      let backgroundSelect = element.querySelector(".element-img_background").alt;
+      let elementSelect = element.querySelector('.element-img_morty').id;
+
       selectMorty.push(cartSelect);
+      backgroundsSelects.push(backgroundSelect);
+      elementsHTML.push(elementSelect);
 
-      console.log(selectMorty);
-      if (selectMorty[1]) {
-        if (selectMorty[0] === selectMorty[1]) {
-          console.log("Si son iguales");
-          element.querySelector(".element-img_morty").style.border =
-            "1px solid green";
-          selectMorty = [];
-        } else {
-          console.log("No son iguales");
-          element.querySelector(".element-img_morty").style.display = "none";
-          element.querySelector(".element-img_background").style.display ="flex";
+    
+      if (selectMorty[1]) { //Correctas
+        if ((selectMorty[0] === selectMorty[1]) &&( backgroundSelects[0] !== backgroundSelects[1]) ) {
+        
+          const element1 = document.getElementById(elementsHTML[0]);
+          const element2 = document.getElementById(elementsHTML[1]);
+
+          element1.style.border = "5px solid #0BF845";;
+          element2.style.border = "5px solid #0BF845";
 
           selectMorty = [];
+          backgroundsSelects = [];
+          elementsHTML = [];
+        } else { // Incorrectas
+
+          const element1 = document.getElementById(elementsHTML[0]);
+          const element2 = document.getElementById(elementsHTML[1]);
+
+          const background1 = document.querySelector(`img[alt="${backgroundsSelects[0]}"]`);
+          const background2 = document.querySelector(`img[alt="${backgroundsSelects[1]}"]`);
+
+          element1.style.border = "5px solid #F70909";;
+          element2.style.border = "5px solid #F70909";
+          
+          setTimeout(() => {
+            
+            element1.style.display = "none";
+            element2.style.display = "none";
+
+            background1.style.display = "flex";
+            background2.style.display = "flex";
+
+              selectMorty = [];
+              backgroundsSelects = [];
+              elementsHTML = [];
+          }, 1000);
+
         }
       }
     });

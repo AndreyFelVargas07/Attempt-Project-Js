@@ -8,8 +8,7 @@ const btnPlay = document.querySelector(".container-button-play");
 btnPlay.addEventListener("click", async () => {
   btnPlay.style.display = "none";
   await activeHoverCartsEfeccts();
-  selectCarts();
-
+  await selectCarts();
 });
 
 // Funcion para agregar los estilos del hover a las cartas
@@ -67,64 +66,141 @@ function createCartsMortys() {
   }
 }
 
-function selectCarts() {
+let clicks = 0,
+    correct = 0,
+    incorrect = 0;
+
+
+async function selectCarts() {
+
   const elements = document.querySelectorAll(".element");
   let selectMorty = [];
   let backgroundsSelects = [];
   let elementsHTML = [];
   
-  elements.forEach((element) => {
-    element.addEventListener("click", () => {
-      element.querySelector(".element-img_background").style.display = "none";
-      element.querySelector(".element-img_morty").style.display = "flex";
 
-      let cartSelect = element.querySelector(".element-img_morty").alt;
-      let backgroundSelect = element.querySelector(".element-img_background").alt;
-      let elementSelect = element.querySelector('.element-img_morty').id;
+  
+  //funcion para mostrar y ocultar una carta
+  function displayStyle(element1, element2, displayStyle){
+    element1.style.display = displayStyle;
+    element2.style.display = displayStyle;
+  }
 
-      selectMorty.push(cartSelect);
-      backgroundsSelects.push(backgroundSelect);
-      elementsHTML.push(elementSelect);
+ // funcion para limpiar los arreglos
+  function resetSelects(){
+    selectMorty = [];
+    backgroundsSelects = [];
+    elementsHTML = [];
+  }
 
-    
-      if (selectMorty[1]) { //Correctas
-        if ((selectMorty[0] === selectMorty[1]) &&( backgroundSelects[0] !== backgroundSelects[1]) ) {
-        
-          const element1 = document.getElementById(elementsHTML[0]);
-          const element2 = document.getElementById(elementsHTML[1]);
 
-          element1.style.border = "5px solid #0BF845";;
-          element2.style.border = "5px solid #0BF845";
+  const btnTryAgain = document.querySelector("#btn-tryagain");
 
-          selectMorty = [];
-          backgroundsSelects = [];
-          elementsHTML = [];
-        } else { // Incorrectas
-
-          const element1 = document.getElementById(elementsHTML[0]);
-          const element2 = document.getElementById(elementsHTML[1]);
-
-          const background1 = document.querySelector(`img[alt="${backgroundsSelects[0]}"]`);
-          const background2 = document.querySelector(`img[alt="${backgroundsSelects[1]}"]`);
-
-          element1.style.border = "5px solid #F70909";;
-          element2.style.border = "5px solid #F70909";
-          
-          setTimeout(() => {
-            
-            element1.style.display = "none";
-            element2.style.display = "none";
-
-            background1.style.display = "flex";
-            background2.style.display = "flex";
-
-              selectMorty = [];
-              backgroundsSelects = [];
-              elementsHTML = [];
-          }, 1000);
-
-        }
-      }
-    });
+  // button para reinciar
+  btnTryAgain.addEventListener("click", () => {
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000);
   });
 }
+
+
+
+ function validatedScore(clicks = 0, correct = 0, incorrect = 0) {
+   let score = (correct * 10) / clicks;
+   score =isNaN(score) ? 0 : score; 
+   
+   createElementScore(clicks,score, correct)
+  }
+  
+  function createElementScore(clicks,  score, correct){
+    const containerOptions = document.querySelector(".container-options");
+    const optionsDivTitle = document.createElement("div");
+    optionsDivTitle.classList.add("container-title");  
+    
+    containerOptions.innerHTML = '';
+    optionsDivTitle.innerHTML = `
+  <div class="container-title">
+        <div class="container-title_score">
+        <h2>Clicks: ${clicks}</h2>
+        <h2>Score: ${score}</h2>
+        <h2>Correct:${correct}/6</h2>
+
+        </div>  
+        <div class="container-title_button">
+            <button id="btn-tryagain">Try Again</button>
+        </div>
+    </div>
+  `;
+  containerOptions.append(optionsDivTitle);
+}
+
+
+function handelElementClick(elements){
+ elements.forEach(element=>{
+   element.addEventListener("click", () => {
+     ++clicks
+     const backgroundImg =  element.querySelector(".element-img_background").style.display = "none";
+     const mortyImg = element.querySelector('.element-img_morty');
+      backgroundImg.style.display = 'none';
+      mortyImg.style.display = 'flex';
+
+      let cartSelect = mortyImg.alt;
+      let backgroundSelect = backgroundImg.alt;
+      let elementSelect = mortyImg.id;
+      
+    })
+ })
+}
+
+elements.forEach((element) => {
+  element.addEventListener("click", () => {
+    ++clicks
+    element.querySelector(".element-img_background").style.display = "none";
+    element.querySelector(".element-img_morty").style.display = "flex";
+
+    let cartSelect = element.querySelector(".element-img_morty").alt;
+    let backgroundSelect = element.querySelector(".element-img_background").alt;
+    let elementSelect = element.querySelector(".element-img_morty").id;
+
+    selectMorty.push(cartSelect);
+    backgroundsSelects.push(backgroundSelect);
+    elementsHTML.push(elementSelect);
+
+    if (selectMorty[1]) {
+      //CORRECT SELECT
+      if ( selectMorty[0] === selectMorty[1] && backgroundsSelects[0] !== backgroundsSelects[1]) {
+        ++correct;
+        const element1 = document.getElementById(elementsHTML[0]);
+        const element2 = document.getElementById(elementsHTML[1]);
+
+        element1.style.border = "5px solid #0BF845";
+        element2.style.border = "5px solid #0BF845";
+
+        resetSelects()
+      } else {
+        ++incorrect;
+        //FALSE SELECT
+        const element1 = document.getElementById(elementsHTML[0]);
+        const element2 = document.getElementById(elementsHTML[1]);
+
+        const background1 = document.querySelector(`img[alt="${backgroundsSelects[0]}"]`);
+        const background2 = document.querySelector(`img[alt="${backgroundsSelects[1]}"]`);
+
+        element1.style.border = "5px solid #F70909";
+        element2.style.border = "5px solid #F70909";
+        
+        setTimeout(() => {
+
+          displayStyle(element1,element2, 'none')
+          displayStyle(background1, background2, 'flex')
+          resetSelects()
+          
+        }, 1000);
+      } 
+      validatedScore(clicks, correct, incorrect); 
+    }
+  });
+  
+ 
+});

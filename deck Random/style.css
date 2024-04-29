@@ -114,3 +114,32 @@ element.style{
   background-color: #09f;
   transform: scale(1.1);
 }
+
+.container-finish{
+  color: #fff;
+  font-size: 25px;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  font-family: cursive;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+}
+.btn-finish {
+  background-color: #09f;
+  padding: 10px;
+  align-content: center;
+  color: #fff;
+  font-family: cursive;
+  margin: 15px auto;
+  font-size: 25px;
+  border-radius: 10px;
+  width: 150px;
+  border: none;
+  height: 60px;
+}
+.btn-finish:hover{
+  background: #18f;
+  color: #333;
+}

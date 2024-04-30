@@ -1,18 +1,18 @@
 document.addEventListener("DOMContentLoaded", async () => {
-  await createCartsMorty();
-  createCartsMortys();
+  await createCardsMorty();
+  createCardsMortys();
 });
 
 const btnPlay = document.querySelector(".container-button-play");
 
 btnPlay.addEventListener("click", async () => {
   btnPlay.style.display = "none";
-  await activeHoverCartsEfeccts();
-  selectCarts();
+  await activeHoverCardsEfeccts();
+  selectCards();
 });
 
 // Funcion para agregar los estilos del hover a las cartas
-async function activeHoverCartsEfeccts() {
+async function activeHoverCardsEfeccts() {
   const styleHTML = document.createElement("style");
 
   styleHTML.innerHTML = `
@@ -36,7 +36,7 @@ async function activeHoverCartsEfeccts() {
 // Funcion que me retorna aleatoriamente 6 objetos del json
 
 let dataJson = [];
-async function createCartsMorty() {
+async function createCardsMorty() {
   const response = await fetch("./mortys.json");
   let data = await response.json();
   for (let i = 0; i < 6; i++) {
@@ -46,8 +46,8 @@ async function createCartsMorty() {
 }
 
 // Funcion para crear los backgrounds
-function createCartsMortys() {
-  const containerCartsHTML = document.querySelector(".container-carts");
+function createCardsMortys() {
+  const containerCardsHTML = document.querySelector(".container-cards");
   let count = 0;
 
   for (let i = 0; i < 12; i++) {
@@ -57,7 +57,7 @@ function createCartsMortys() {
         <img class="element-img_background" src="./Morty-img/Backgroun-Cart.jpg" alt="background${i}">
         <img class="element-img_morty" id="morty${i}"  src="${dataJson[count].img}" alt="${dataJson[count].name}">
         `;
-    containerCartsHTML.appendChild(elementDiv);
+    containerCardsHTML.appendChild(elementDiv);
 
     ++count;
     if (i === 5) {
@@ -67,106 +67,135 @@ function createCartsMortys() {
 }
 
 // funcion para la seleccion de cartas
-function selectCarts() {
-
+function selectCards() {
   const elements = document.querySelectorAll(".element");
-  elements.forEach(element => {
-    element.addEventListener("click", () => {
-      handleElementClick(element);
+  elements.forEach((element) => {
+    element.addEventListener("click", async () => {
+      await handleElementClick(element);
     });
   });
 }
 // variables Globales
 let selectMorty = [];
 let backgroundsSelects = [];
+let elementsDisable = [];
 let idElementSelected = [];
 let clicks = 0;
 let correct = 0;
 let incorrect = 0;
 
 // Funcion para manejar el evento click y recorrer los elementos
- function handleElementClick(element){
-  ++clicks
+async function handleElementClick(element) {
+  ++clicks;
+
   const backgroundImg = element.querySelector(".element-img_background");
-  const mortyImg = element.querySelector('.element-img_morty');
-   backgroundImg.style.display = 'none';
-   mortyImg.style.display = 'flex';
+  const mortyImg = element.querySelector(".element-img_morty");
+  backgroundImg.style.display = "none";
+  mortyImg.style.display = "flex";
 
-   let cartSelect = mortyImg.alt;
-   let selectedBackground = backgroundImg.alt;
-   let idElementSelect = mortyImg.id;
-   
- selectMorty.push(cartSelect);
- backgroundsSelects.push(selectedBackground);
- idElementSelected.push(idElementSelect);
- validateSelectdElements(selectMorty, backgroundsSelects, idElementSelected)
+  let cardSelect = mortyImg.alt;
+  let selectedBackground = backgroundImg.alt;
+  let idElementSelect = mortyImg.id;
 
+  selectMorty.push(cardSelect);
+  backgroundsSelects.push(selectedBackground);
+  idElementSelected.push(idElementSelect);
+  elementsDisable.push(element);
+  await timerSelectCard();
 }
 
+//funcion para determinar si se esta seleccionando la segunda carta, si no para dejarlo como estaba todo.
+async function timerSelectCard() {
+  
+  if (selectMorty[1]) {
+    validateSelectdElements();
+  } else {
+    setTimeout(() => {
+      const element = document.getElementById(idElementSelected[0]);
+      const backgroundElement = document.querySelector(
+        `img[alt="${backgroundsSelects[0]}"]`
+      );
+      element.style.display = "none";
+      backgroundElement.style.display = "flex";
+      resetSelectsArrays();
+    }, 1500);
+  }
+}
 // Funcion que valida las selecciones
-function validateSelectdElements(selectMorty,backgroundsSelects, idElementSelected ){
-if (selectMorty[1]) {
-//CORRECT SELECT
-if ( selectMorty[0] === selectMorty[1] && backgroundsSelects[0] !== backgroundsSelects[1]) {
-  ++correct;
-  const element1 = document.getElementById(idElementSelected[0]);
-  const element2 = document.getElementById(idElementSelected[1]);
+function validateSelectdElements() {
+  if (selectMorty[1]) {
+    //CORRECT SELECT
+    if (
+      selectMorty[0] === selectMorty[1] &&
+      backgroundsSelects[0] !== backgroundsSelects[1]
+    ) {
+      ++correct;
+      const element1 = document.getElementById(idElementSelected[0]);
+      const element2 = document.getElementById(idElementSelected[1]);
+      
+      removeClassList();
+      element1.style.border = "5px solid #0BF845";
+      element2.style.border = "5px solid #0BF845";
+      resetSelectsArrays();
+    } else {
+      ++incorrect;
+      //FALSE SELECT
+      const element1 = document.getElementById(idElementSelected[0]);
+      const element2 = document.getElementById(idElementSelected[1]);
 
-  element1.style.border = "5px solid #0BF845";
-  element2.style.border = "5px solid #0BF845";
+      const background1 = document.querySelector(
+        `img[alt="${backgroundsSelects[0]}"]`
+      );
+      const background2 = document.querySelector(
+        `img[alt="${backgroundsSelects[1]}"]`
+      );
 
-  resetSelectsArrays()
-} else {
-  ++incorrect;
-  //FALSE SELECT
-  const element1 = document.getElementById(idElementSelected[0]);
-  const element2 = document.getElementById(idElementSelected[1]);
+      element1.style.border = "5px solid #F70909";
+      element2.style.border = "5px solid #F70909";
 
-  const background1 = document.querySelector(`img[alt="${backgroundsSelects[0]}"]`);
-  const background2 = document.querySelector(`img[alt="${backgroundsSelects[1]}"]`);
-
-  element1.style.border = "5px solid #F70909";
-  element2.style.border = "5px solid #F70909";
-  
-  setTimeout(() => {
-
-    editStyleDisplay(element1,element2, 'none')
-    editStyleDisplay(background1, background2, 'flex')
-    resetSelectsArrays()
-    
-  }, 1000);
-} 
-validatedScore(clicks, correct, incorrect); 
+      setTimeout(() => {
+        editStyleDisplay(element1, element2, "none");
+        editStyleDisplay(background1, background2, "flex");
+        resetSelectsArrays();
+      }, 1000);
+    }
+    validatedScore(clicks, correct, incorrect);
+  }
 }
+//funcion para mostrar y ocultar una carta
+function editStyleDisplay(element1, element2, displayStyle) {
+  element1.style.display = displayStyle;
+  element2.style.display = displayStyle;
+}
+// funcion para limpiar los arreglos
+function resetSelectsArrays() {
+  selectMorty = [];
+  backgroundsSelects = [];
+  idElementSelected = [];
 }
 
-  //funcion para mostrar y ocultar una carta
-  function editStyleDisplay(element1, element2, displayStyle){
-    element1.style.display = displayStyle;
-    element2.style.display = displayStyle;
-  }
- // funcion para limpiar los arreglos
-  function resetSelectsArrays(){
-    selectMorty = [];
-    backgroundsSelects = [];
-    idElementSelected = [];
-  }
+function removeClassList(){
+  elementsDisable[0].classList.remove('element');
+  elementsDisable[0].classList.add('elementSelected');
+  elementsDisable[1].classList.remove('element');
+  elementsDisable[1].classList.add('elementSelected');
 
+  elementsDisable = [];
+}
+function validatedScore(clicks = 0, correct = 0, incorrect = 0) {
+  let score = correct * 10 - clicks;
+  score = isNaN(score) ? 0 : score;
 
- function validatedScore(clicks = 0, correct = 0, incorrect = 0) {
-   let score = (correct * 10) - clicks;
-   score =isNaN(score) ? 0 : score; 
-   
-   createElementScore(clicks,score - incorrect, correct)
-  }
-  
-  function createElementScore(clicks,  score, correct){
-    const containerOptions = document.querySelector(".container-options");
-    const optionsDivTitle = document.createElement("div");
-    optionsDivTitle.classList.add("container-title");  
-    
-    containerOptions.innerHTML = '';
-    optionsDivTitle.innerHTML = `
+  createElementScore(clicks, score - incorrect, correct);
+}
+
+function createElementScore(clicks, score, correct) {
+  const containerOptions = document.querySelector(".container-options");
+  const optionsDivTitle = document.createElement("div");
+  optionsDivTitle.classList.add("container-title");
+
+  containerOptions.innerHTML = "";
+  optionsDivTitle.innerHTML = `
   <div class="container-title">
         <div class="container-title_score">
         <h2>Clicks: ${clicks}</h2>
@@ -179,31 +208,31 @@ validatedScore(clicks, correct, incorrect);
         </div>
     </div>
   `;
-  if(correct === 6) {
-    
+  if (correct === 6) {
     finishGame(score, clicks, incorrect);
-    optionsDivTitle.innerHTML=''
+    optionsDivTitle.innerHTML = "";
   }
   containerOptions.append(optionsDivTitle);
 }
 
-function finishGame(score, clicks, incorrect, time){
-  const container = document.querySelector('.container-carts');
-  const containerFinish  = document.createElement('div')
-  const titleGame = document.querySelector('.title-game');
-  
-  containerFinish.classList.add('container-finish');
+function finishGame(score, clicks, incorrect, time) {
+  const container = document.querySelector(".container-cards");
+  const containerFinish = document.createElement("div");
+  const titleGame = document.querySelector(".title-game");
 
-  titleGame.innerHTML = '';
-  container.innerHTML = '';
+  containerFinish.classList.add("container-finish");
+
+  titleGame.innerHTML = "";
+  container.innerHTML = "";
   containerFinish.innerHTML = `
-  <h1 style="color:#09f; font-size:50px; margin-bottom: 15px;"> Congratulations Has Finish<b style="color:#fff;"> Morty Game</b></h1>
+  <h1 style="color:#09f; font-size:50px; margin-bottom: 25px; border-bottom:2px solid #fff; border-radius:5px"> Congratulations </b></h1>
+  <h2 style="color:#09f; font-size:40px;">Has Finish<b style="color:#fff;"> Morty Game</b></h2>
   <h2>Score: <b style="color:#09f;"> ${score}</b></h2>
   <h2>Clicks:<b style="color:#09f;"> ${clicks}</b></h2>
   <h2>Errores:<b style="color:#09f;"> ${incorrect}</b></h2>
   <h2>Time: <b style="color:#09f;">${time}</b></h2>
 
   <button class="btn-finish" onclick="window.location.reload()"> Play Again </button>
-  `
-  container.appendChild(containerFinish)
+  `;
+  container.appendChild(containerFinish);
 }
